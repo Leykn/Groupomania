@@ -37,8 +37,7 @@ import { useStore } from 'vuex'
             const router = useRouter()
 
             const state = reactive({
-                postList: [],
-                deletePost: store.state.posts.deletePost
+                postList: []
             })
 
             const getAllPosts = async () => {

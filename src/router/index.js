@@ -64,11 +64,6 @@ const routes = [
                 path: '/user-list',
                 component: TheUserList,
                 beforeEnter: [checkLoggedIn],
-            },
-            {
-                path: '/user/modify',
-                component: TheModifyUser,
-                beforeEnter: [checkLoggedIn]
             }
         ]
     },

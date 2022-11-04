@@ -52,7 +52,7 @@ Pour lancer le projet, vous devez avoir Node.js installé sur votre machine.
 Avec le terminal, depuis le dossier dans lequel vous souhaitez enregistrer le projet, clonez le projet avec la commande :
 
 ```
-git clone https://github.com/ groupomania
+git clone https://github.com/Leykn/Groupomania.git groupomania
 ```
 
 Le dossier ainsi créé sur votre machine doit contenir les éléments suivants :

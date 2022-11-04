@@ -1,4 +1,3 @@
-import { promiseTimeout } from '@vueuse/shared'
 import axios from 'axios'
 
 let instance = null
@@ -68,16 +67,6 @@ export async function createPost(post) {
 export async function getAllPosts() {
     try {
         const res = await instance.get('/post/')
-        return res
-    } catch (error) {
-        return error
-    }
-}
-
-// Modification d'un post
-export async function modifyPost({id, post}) {
-    try {
-        const res = await instance.put('/post/' + id, post)
         return res
     } catch (error) {
         return error

@@ -23,6 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
+/public
 /node_modules
 /back/node_modules
 /back/images

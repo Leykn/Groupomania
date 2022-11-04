@@ -9,16 +9,12 @@ export default {
                 title: '',
                 content: '',
                 imageUrl: ''
-            },
-            deletePost: false
+            }
         }
     },
     mutations: {
         SET_EDIT_POST (state, post) {
             state.editPost = post
-        },
-        SET_DELETE_POST (state, bool) {
-            state.deletePost = bool
         }
     },
     actions: {
@@ -36,16 +32,6 @@ export default {
             const res = await PostService.getAllPosts()
             if (res === undefined) {
                 const retry = await PostService.getAllPosts()
-                return retry
-            } else {
-                return res
-            }
-        },
-
-        async modifyPost ({ commit }, {id, post}) {
-            const res = await PostService.modifyPost({id, post})
-            if (res === undefined) {
-                const retry = await PostService.modifyPost({id, post})
                 return retry
             } else {
                 return res
