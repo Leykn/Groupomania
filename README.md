@@ -60,7 +60,7 @@ Le dossier ainsi créé sur votre machine doit contenir les éléments suivants 
 - Un dossier **back** contenant le code de l'API.
 - Un dossier **src** contenant le code de l'application frontend.
 - Le fichier image **default_avatar.png**.
-- Les fichiers **README.md** et **index.html**.
+- Les fichiers **vite.config.js**, **README.md** et **index.html**.
 
 #### **Étape 2 - Installation de l'API** ####
 
@@ -112,7 +112,7 @@ Placez-y le fichier **default_avatar.png**.
 Avec le terminal, depuis le dossier back, éxécutez la commande :
 
 ```
-nodemon server || node server
+node server
 ```
 
 Si tout se passe bien, les messages suivants apparaissent dans le terminal :
