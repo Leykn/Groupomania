@@ -94,12 +94,13 @@ dbPassword = "Mot de passe de connexion mongoDB"
 EMAIL_CRYPT_KEY = "chaîne de caractères aléatoire"
 ```
 
-À la racine du dossier **back**, ajoutez un fichier **.gitignore** avec les éléments suivants :
+À la racine du projet, ajoutez un fichier **.gitignore** avec les éléments suivants :
 
 ```
-/.env
 /node_modules
-/images
+/back/node_modules
+/back/images
+/back/.env
 ```
 
 #### **Étape 4 - Ajout du dossier images** ####
