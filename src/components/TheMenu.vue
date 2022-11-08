@@ -139,7 +139,7 @@
         border-left: none;
         box-shadow: 1px 1px 5px rgb(0 0 0 / 20%);
     }
-    div {
+    nav {
         width: 0;
     }
 }

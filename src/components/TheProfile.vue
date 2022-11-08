@@ -3,7 +3,7 @@
         <div class="row" v-if="$store.state.users.currentUser">
             <div class="nameAndPicture">
                 <h2>{{ username }}</h2>
-                <img :src="imageUrl" alt="Photo de profil" class="avatar">
+                <img :src="imageUrl" alt="Photo de profil" class="avatarProfile">
             </div>
             <div class="bio">
                 <div class="description">
@@ -36,46 +36,25 @@ export default {
             loading: false
         })
 
-        // Demande les informations de l'utilisateur en base de donnée
-        const getOneProfile = async () => {
-            const userId = state.userId
-            if (userId === '') {
-                const res = await store.dispatch('users/getCurrentUser')
-                if (res.status === 200) {
-                    store.commit('users/SET_USER_PROFILE', res.data)
-                    state.imageUrl = store.state.users.userProfile.imageUrl
-                    state.username = store.state.users.userProfile.username
-                    if (store.state.users.userProfile.bio === ' ') {
-                        state.bio = "Aucune description enregistré." 
-                    } else {
-                        state.bio = store.state.users.userProfile.bio
-                    }
-                    return
+        // Demande les informations de l'utilisateur actuel
+        const getCurrentUser = async () => {
+            const res = await store.dispatch('users/getCurrentUser')
+            if (res.status === 200) {
+                store.commit('users/SET_USER_PROFILE', res.data)
+                state.imageUrl = store.state.users.userProfile.imageUrl
+                state.username = store.state.users.userProfile.username
+                if (store.state.users.userProfile.bio === ' ') {
+                    state.bio = "Aucune description enregistré." 
                 } else {
-                    store.dispatch('notifications/sendError', {
-                        title: 'Erreur',
-                        message: res.data.message
-                        })
+                    state.bio = store.state.users.userProfile.bio
                 }
+                return
             } else {
-                const res = await store.dispatch('users/getProfile', userId)
-                if (res.status === 200) {
-                    state.imageUrl = store.state.users.userProfile.imageUrl
-                    state.username = store.state.users.userProfile.username
-                    if (store.state.users.userProfile.bio === ' ') {
-                        state.bio = "Aucune description enregistré." 
-                    } else {
-                        state.bio = store.state.users.userProfile.bio
-                    }
-                    return
-                } else {
-                    store.dispatch('notifications/sendError', {
-                        title: 'Erreur',
-                        message: res.data.message
-                        })
-                }
+                store.dispatch('notifications/sendError', {
+                    title: 'Erreur',
+                    message: res.data.message
+                })
             }
-            
         }
 
         // Redirige l'utilisateur vers la modification du profile
@@ -85,12 +64,12 @@ export default {
         
         return {
             ...toRefs(state),
-            getOneProfile,
+            getCurrentUser,
             modifyUser
         }
     },
     mounted() {
-        this.getOneProfile()
+        this.getCurrentUser()
     },
 }
 </script>
@@ -112,6 +91,13 @@ export default {
         height: calc(100vh - 100px);
         padding: 0px;
     }
+    .avatarProfile {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 50px;
+        overflow: hidden;
+    }
     @media screen and (max-width: 767px) {
         .row {
             flex-direction: column;
@@ -121,6 +107,11 @@ export default {
         }
         .bio {
             width: 100%;
+        }
+        .avatarProfile {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
         }
     }
 </style>
