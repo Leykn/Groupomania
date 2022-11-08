@@ -84,7 +84,7 @@
                             <BaseInput
                                 label="Mot de passe actuel"
                                 v-model="password"
-                                type="text"
+                                type="password"
                                 id="password"
                                 aria-describedby="passwordError"
                                 :aria-invalid="v$.password.$invalid"
@@ -310,9 +310,9 @@
 
             const v$ = useVuelidate(rules, state, { $autoDirty: true })
 
-            const storage = JSON.parse(localStorage.getItem('currentUser'))
+            const storage = JSON.parse(localStorage.getItem('accessUser'))
 
-            const sendModifyUserPassword = async () => {
+            const sendModifyUserPassword = () => {
                 v$.value.$touch()
                 const userId = state.userId
                 const config = {
@@ -388,7 +388,6 @@
                     if (state.fileExtension === 'jpeg' || state.fileExtension === 'jpg' || state.fileExtension === 'png') {
                         if (!v$.value.username.$error && !v$.value.bio.$error) {
                         state.loading = true
-                        console.log('id : ' + userId)
                         axios.put(`http://localhost:3000/api/user/${userId}`, userData, config)
                         .then(res => {
                             if (res.status === 200) {

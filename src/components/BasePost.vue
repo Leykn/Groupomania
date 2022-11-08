@@ -10,7 +10,7 @@
         <div>
             <h3>{{ title }}</h3>
             <div class="contentPost">
-                <img v-if="imageUrl != ' '" :src="imageUrl" alt="">
+                <img v-if="imageUrl != ' '" :src="imageUrl" :alt="'images de ' + id">
                 <p>{{ content }}</p>
             </div>
         </div>
@@ -20,6 +20,7 @@
                 {{ likeCount }}
             </span>
             <div>
+                <!-- Vérification de l'autorisation de l'utilisateur -->
                 <el-button v-if="$store.state.users.currentUser.userId === userId || $store.state.users.currentUser.status === 'admin'" @click="modifyPost" type="primary">
                     <el-tooltip
                         class="box-item"
@@ -104,6 +105,7 @@
                 imageUrl: props.imageUrl
             }
 
+            // Redirige vers la page de modification du post
             const modifyPost = () => {
                 store.commit('posts/SET_EDIT_POST', post)
                 router.push(`/modify/${props.id}`)
@@ -111,6 +113,7 @@
 
             const id = props.id
 
+            // Supprime le post
             const deletePost = async () => {
                 const res = await store.dispatch('posts/deletePost', id)
                 if (res.status === 200) {
@@ -124,6 +127,7 @@
                 }
             }
 
+            // Incrémente ou décrémente la valeur de like du post
             const liked = async () => {
                 let like = ''
                 const userId = store.state.users.currentUser.userId
@@ -173,6 +177,7 @@
                 }
             }
 
+            // Défini la couleur du boutton like
             const postLiked = () => {
                 const userId = store.state.users.currentUser.userId
                 if (usersLiked.length === 0) {
@@ -187,6 +192,7 @@
                 }
             }
 
+            // Demande les informations de l'utilisateur en base de donnée
             const getOneProfile = async () => {
                 const userId = props.userId
                 const res = await store.dispatch('users/getProfile', userId)

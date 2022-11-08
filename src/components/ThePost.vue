@@ -1,10 +1,9 @@
 <template>
     <el-scrollbar class="scroll">
-        <div>
-            <!-- Implémentation de la liste des posts -->
-            <ul>
-                <li v-for="post, index in postList" :key="index">
-                    <BasePost
+        <!-- Implémentation de la liste des posts -->
+        <ul>
+            <li v-for="post, index in postList" :key="index">
+                <BasePost
                     @updatePostList="updatePostList"
                     :id="post._id"
                     :title="post.title"
@@ -14,12 +13,11 @@
                     :like="post.likes"
                     :userId="post.userId"
                     :usersLiked="post.usersLiked"
-                    >
-                    </BasePost>
-                </li>
-            </ul>
-        </div>
-        <button class="btn" @click.prevent="routeNewPost">Poster un message</button>
+                >
+                </BasePost>
+            </li>
+        </ul>
+        <button class="btn" @click="routeNewPost">Poster un message</button>
     </el-scrollbar >
 </template>
 
@@ -40,22 +38,20 @@ import { useStore } from 'vuex'
                 postList: []
             })
 
+            // Récupère la liste de tous les posts
             const getAllPosts = async () => {
                 const res = await store.dispatch('posts/getAllPosts')
                 for (let post of res.data) {
                     state.postList.push(post)
                 }
-                sortPost()
             }
 
-            const sortPost = () => {
-                state.postList.sort((a,b) => b.date - a.date)
-            }
-
+            // Redirige l'utilisateur vers la création d'un nouveau post
             const routeNewPost = () => {
                 router.push('/create')
             }
 
+            // Met à jour la liste des posts
             const updatePostList = () => {
                 state.postList = []
                 getAllPosts()
@@ -70,9 +66,6 @@ import { useStore } from 'vuex'
         },
         mounted() {
             this.getAllPosts()
-        },
-        updated() {
-            this.updatePostList()
         }
     }
 </script>

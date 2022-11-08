@@ -85,6 +85,7 @@ exports.login = (req, res) => {
         .catch( error => res.status(500).json({ error }));
 };
 
+// Modification de l'utilisateur après vérification d'autorisation
 exports.modifyUser = (req, res) => {
     const body = req.body.bool ? {
         ...req.body,
@@ -119,6 +120,7 @@ exports.modifyUser = (req, res) => {
         .catch(error => res.status(400).json({ error }));
 };
 
+// Modification du mot de passe après vérification d'autorisation
 exports.modifyUserPassword = (req, res) => {
     User.findOne({_id: req.params.id})
         .then((user) => {
@@ -145,6 +147,7 @@ exports.modifyUserPassword = (req, res) => {
         .catch(error => res.status(400).json({ error }));
 };
 
+// Suppression de l'utilisateur après vérification d'autorisation
 exports.deleteUser = (req, res) => {
     User.findOne({ _id: req.params.id})
         .then(user => {
@@ -163,18 +166,28 @@ exports.deleteUser = (req, res) => {
         .catch( error => res.status(500).json({ error }));
 };
 
+// Envoi les données de l'utilisateur actuel
+exports.getCurrentUser = (req, res) => {
+    User.findOne({ _id: req.auth.userId })
+        .then( user => {res.status(200).json(user)})
+        .catch( error => res.status(400).json({ error }));
+};
+
+// Envoi les données de l'utilisateur spécifié
 exports.getOneUser = (req, res) => {
     User.findOne({ _id: req.params.id })
         .then( user => {res.status(200).json(user)})
         .catch( error => res.status(400).json({ error }));
 };
 
+// Envoi la liste des utilisateur trié par ordre croissant alphabétique
 exports.getAllUsers = (req, res) => {
-    User.find()
+    User.find().sort({"username":1})
         .then( user => res.status(200).json(user))
         .catch( error => res.status(400).json({ error }));
 };
 
+// Met à jour l'accessToken après vérification du refreshToken
 exports.refreshToken = (req, res) => {
     const token = req.headers.authorization.split(' ')[1];
     if (!token) {
@@ -184,7 +197,8 @@ exports.refreshToken = (req, res) => {
         if (err) {
             return res.status(401).json({message: 'Veuillez vous identifier.'});
         }
-        User.findOne({ _id: req.body.userId })
+        const userId = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET).userId;
+        User.findOne({ _id: userId })
             .then(user => {
                 if (!user) {
                     return res.status(401).json({message: 'Utilisateur introuvable.'});

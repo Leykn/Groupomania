@@ -9,6 +9,7 @@ const store = createStore({
         users: UsersModule,
         posts: PostsModule
     },
+    // Permet d'afficher les mutations et actions en console
     plugins: import.meta.env.MODE !== 'production' ? [createLogger()] : []
 })
 

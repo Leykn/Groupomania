@@ -19,6 +19,8 @@ router.delete('/:id', auth, userCtrl.deleteUser);
 router.get('/', auth, userCtrl.getAllUsers);
 // Récupère un utilisateur spécifique
 router.get('/:id', auth, userCtrl.getOneUser);
+// Récupère l'utilisateur de la requète
+router.get('/user/:id', auth, userCtrl.getCurrentUser);
 // Met à jour le token d'authentification
 router.post('/refreshToken', userCtrl.refreshToken);
 

@@ -78,16 +78,19 @@
                 ]
             })
 
+            // Retourne un nombre entre 0 et 10
             function getRandomInt() {
                 return Math.floor(Math.random() * 11)
             }
 
+            // Choisi une citation au hasard
             const selectOneQuote = () => {
                 const number = getRandomInt()
                 state.currentCitation.citation = '\u00ab ' + state.citations[number].citation + ' \u00bb'
                 state.currentCitation.auteur = '- ' + state.citations[number].auteur
             }
 
+            // Redirige vers la page précédente
             const goToPreviousPage = function() {
                 router.back()
             }

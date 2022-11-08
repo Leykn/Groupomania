@@ -86,6 +86,7 @@
                 loading: false,
             })
 
+            // Mise en place des règles pour chaque input du formulaire
             const rules = {
                 title: {
                 required
@@ -101,16 +102,17 @@
                 'image/png'
                 ]
 
+            // Vérifie l'extention du fichier à envoyer
             function validFileType(file) {
                 for(let i = 0; i < fileTypes.length; i++) {
                     if(file.type === fileTypes[i]) {
                     return true;
                     }
                 }
-
                 return false;
             }
             
+            // Affiche l'image ajouter par l'utilisateur
             const previous = () => {
                 const input = document.getElementById('file')
                 const preview = document.getElementById('previous')
@@ -144,6 +146,7 @@
 
             const v$ = useVuelidate(rules, state, { $autoDirty: true })
 
+            // Envoi du formulaire si aucune erreur n'est présente
             const sendPost = async () => {
                 v$.value.$touch()
                 if (state.file === '') {

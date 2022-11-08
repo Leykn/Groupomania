@@ -52,6 +52,7 @@
         color: '#fff'
       })
 
+      // Confirme la déconnexion de l'utilisateur
       const confirmLogout = () => {
         state.loading = true
         store.dispatch('users/logout')

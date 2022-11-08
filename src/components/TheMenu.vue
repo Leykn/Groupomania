@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <nav>
         <span @click="burger" class="navBarToggle">
             <span v-bind:class="[ isActif ? 'close' : '', 'iconBar' ]"></span>
         </span>
@@ -26,7 +26,7 @@
             </el-menu>
 
         </el-aside>
-    </div>
+    </nav>
 </template>
 
 <script>
@@ -37,6 +37,7 @@
                 isActif: false
             })
 
+            // Active ou désactive le menu burger
             const burger = () => {
                 if (state.isActif) {
                     state.isActif = false

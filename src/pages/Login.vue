@@ -78,6 +78,8 @@
           password: '',
           loading: false,
         })
+
+        // Mise en place des règles pour chaque input du formulaire
         const rules = {
           email: {
             required,
@@ -90,7 +92,10 @@
           }
         }
         const redirection = () => { router.push('/register')}
+
         const v$ = useVuelidate(rules, state, { $autoDirty: true })
+
+        // Envoi du formulaire si aucune erreur n'est présente
         const sendForm = async () => {
           v$.value.$touch()
           if (!v$.value.$error) {

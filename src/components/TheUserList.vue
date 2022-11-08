@@ -17,7 +17,6 @@
 <script>
     import { reactive, toRefs } from 'vue'
     import BaseUserList from './BaseUserList.vue'
-    import { useRouter } from 'vue-router'
     import { useStore } from 'vuex'
     export default {
         components: {
@@ -25,22 +24,17 @@
         },
         setup() {
             const store = useStore()
-            const router = useRouter()
 
             const state = reactive({
                 userList: []
             })
 
+            // Récupération de la liste d'utilisateur
             const getAllUsers = async () => {
                 const res = await store.dispatch('users/getAllUsers')
                 for (let user of res.data) {
                     state.userList.push(user)
                 }
-                sortUserList()
-            }
-
-            const sortUserList = () => {
-                state.userList.sort((a,b) => a.username.localeCompare(b.username))
             }
 
             return {

@@ -24,7 +24,6 @@
 
 <script>
     import { reactive, toRefs } from 'vue'
-    import { useRouter } from 'vue-router'
     import { useStore } from 'vuex'
     export default {
         inheritAttrs: false,
@@ -34,7 +33,6 @@
             imageUrl: String,
         },
         setup(props) {
-            const router = useRouter()
             const store = useStore()
 
             const state = reactive({
@@ -44,6 +42,7 @@
                 color: '#fff'
             })
 
+            // Demande les informations de l'utilisateur en base de donnée
             const getOneProfile = async () => {
                 const userId = props.userId
                 const res = await store.dispatch('users/getProfile', userId)

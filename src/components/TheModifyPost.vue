@@ -171,9 +171,9 @@
 
             const v$ = useVuelidate(rules, state, { $autoDirty: true })
 
-            const storage = JSON.parse(localStorage.getItem('currentUser'))
+            const storage = JSON.parse(localStorage.getItem('accessUser'))
                         
-            const sendModifyPost = async () => {
+            const sendModifyPost = () => {
                 v$.value.$touch()
                 const config = {
                     headers: { Authorization: `Bearer ${storage.accessToken}` }

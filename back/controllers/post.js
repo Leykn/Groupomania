@@ -1,6 +1,5 @@
 const fs = require('fs');
 const Post = require('../models/Post');
-const User = require('../models/User')
 
 const regexInputs = /^[a-zA-Z0-9 \_\.\-\,\'\!\(\)\r\&ôéêèàçùîï]+$/m;
 
@@ -113,13 +112,14 @@ exports.getOnePost = (req, res) => {
         .catch( error => res.status(400).json({ error }));
 };
 
-// Retourne tous les objets de la base de donnée
+// Envoi la liste des messages trié de façon antéchronologique
 exports.getAllPost = (req, res) => {
-    Post.find()
+    Post.find().sort({"date":-1})
         .then(post => res.status(200).json(post))
         .catch( error => res.status(400).json({ error }));
 };
 
+// Modification du nombre de like et du tableau d'utilisateur ayant aimé le message
 exports.like = (req, res) => {
     Post.findOne({ _id: req.params.id})
         .then((post) => {

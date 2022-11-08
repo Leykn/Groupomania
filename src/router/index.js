@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+// Import des pages et components utiliser par une route
 import HomePage from '../pages/Home.vue'
 const LoginPage = () => import('../pages/Login.vue')
 const RegisterPage = () => import('../pages/Register.vue')
@@ -13,6 +14,7 @@ const TheModifyPost = () => import('../components/TheModifyPost.vue')
 const UserList = () => import('../pages/UserList.vue')
 const TheUserList = () => import('../components/TheUserList.vue')
 
+// Définission de chaque route
 const routes = [
     {
         path: '/',
@@ -104,14 +106,17 @@ let router = createRouter({
     routes 
 })
 
+// Vérifie que l'utilisateur n'est pas connécté
 function checkLoggedIn () {
-    if (!localStorage.getItem('currentUser')) {
+    if (!localStorage.getItem('accessUser')) {
         return '/login'
     }
 }
 
+
+// Vérifie que l'utilisateur est connécté
 function checkNotLoggedIn () {
-    if (localStorage.getItem('currentUser')) {
+    if (localStorage.getItem('accessUser')) {
         return '/'
     }
 }

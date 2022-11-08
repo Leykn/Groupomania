@@ -140,6 +140,8 @@
         loading: false,
         errorPassword: null,
       })
+
+      // Mise en place des règles pour chaque input du formulaire
       const rules = {
         username: {
           required
@@ -158,8 +160,13 @@
           sameAsPassword: sameAsPassword(toRef(state, 'password'))
         }
       }
+
       const redirection = () => { router.push('/login')}
+      
       const v$ = useVuelidate(rules, state, { $autoDirty: true })
+
+      // Envoi du formulaire si aucune erreur n'est présente
+      // Connecte l'utilisateur lors de la réussite de la création de son compte
       const sendForm = async () => {
         v$.value.$touch()
         if (!v$.value.$error && state.errorPassword == null) {
@@ -191,6 +198,7 @@
           state.loading = false
         }
       }
+
       // Ré-éxecution des validators de passwordConfirm si password change après-coup
       watch(toRef(state, 'password'), () => {
         if (v$.value.passwordConfirm.$dirty) {

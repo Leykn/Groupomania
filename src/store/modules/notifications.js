@@ -9,15 +9,18 @@ export default {
         }
     },
     mutations: {
+        // Pour l'utilisation de $notify
         SET_NOTIFIER (state, value) {
             state.notifier = value
         },
+        // Ajout de la notification
         ADD_NOTIFICATION (state, newNotification) {
             state.history.push(newNotification)
         }
     },
     actions: {
 
+        // Enregistrement de la notification
         saveNotification ({ commit }, element) {
             const ID = uuid()
             commit('ADD_NOTIFICATION', {
@@ -32,6 +35,7 @@ export default {
          * @param {*} { state , dispatch }
          * @param {*} { type, title, message, ...}
          */
+        // Message de notification custom
         sendCustom ({ state, dispatch }, options ) {
             const element = state.notifier({
                 offset: 50,
@@ -41,6 +45,7 @@ export default {
             return dispatch('saveNotification', element)
         },
 
+        // Message de notification d'erreur
         sendError ({ dispatch }, options ) {
             return dispatch('sendCustom', {
                 type: 'error',
@@ -48,6 +53,7 @@ export default {
             })
         },
 
+        // Message de notification de succès
         sendSuccess ({ dispatch }, options ) {
             return dispatch('sendCustom', {
                 type: 'success',
@@ -55,6 +61,7 @@ export default {
             })
         },
 
+        // Message de notification d'avertissement
         sendWarning ({ dispatch }, options ) {
             return dispatch('sendCustom', {
                 type: 'warning',
@@ -63,6 +70,7 @@ export default {
         }
     },
     getters: {
+        // Récupération de la notification spécifié
         getNotificationByID: (state) => (id) => {
             return state.history.find(notification => notification.id === id)
         }

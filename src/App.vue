@@ -1,15 +1,20 @@
 <template>
+  <!-- Vérification de la connexion de l'utilisateur par v-if -->
   <div v-if="$route.meta.layout === true" class="mainContainer">
+    <!-- el-container = section -->
     <el-container>
 
+      <!-- Intégration du component -->
       <TheHeader />
 
       <el-container class="main">
         
         <TheMenu />
 
+        <!-- el-main = main -->
         <el-main>
 
+          <!-- Utilisation de la route actuelle -->
           <router-view></router-view>
 
         </el-main>
@@ -27,7 +32,7 @@
 </template>
 
 <script>
-  import { mapMutations } from 'vuex'
+  import { mapMutations, useStore } from 'vuex'
   
   import TheHeader from './components/TheHeader.vue'
   import TheMenu from './components/TheMenu.vue'
@@ -37,14 +42,25 @@
       TheHeader,
       TheMenu
     },
+    setup() {
+      const store = useStore()
+
+      // Récupération de l'utilisateur actuel
+      const getCurrentUser = async () => {
+        const res = await store.dispatch('users/getCurrentUser')
+      }
+
+      return {getCurrentUser}
+    },
     methods: {
       ...mapMutations({
         SET_NOTIFIER: 'notifications/SET_NOTIFIER'
-      })
+      }),
     },
     created() {
       this.SET_NOTIFIER(this.$notify)
-    }
+      this.getCurrentUser()
+    },
   }
 </script>
 
@@ -123,8 +139,11 @@
     overflow: clip;
   }
   .updateUserImg {
-      border-radius: 50%;
-      overflow: hidden;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    overflow: hidden;
+    object-fit: cover;
   }
   .el-col-12 {
     width: 50%;
@@ -145,6 +164,10 @@
       display: none;
     }
     img {
+      max-width: 250px;
+      max-height: 250px;
+    }
+    .updateUserImg {
       max-width: 250px;
       max-height: 250px;
     }
